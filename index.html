@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>元素記号クイズ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="start-screen">
+            <h1>元素記号クイズ</h1>
+            <p>モード選択</p>
+            <button id="btn-normal">原子番号順</button>
+            <button id="btn-random">ランダム</button>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div id="question-container">
+                <span id="question-text">1 H</span>
+            </div>
+            <div class="input-area">
+                <input type="text" id="answer-input" placeholder="入力" autocomplete="off">
+            </div>
+            
+            <div id="result-area" class="hidden">
+                <p id="judgment"></p>
+                <p id="correct-answer"></p>
+                <button id="btn-next">次へ</button>
+            </div>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h1>終了！</h1>
+        </div>
+
+        <div id="controls" class="hidden">
+            <hr>
+            <button id="btn-reset" class="secondary-btn">最初から</button>
+            
+            <div id="wrong-list-area" class="hidden">
+                <ul id="wrong-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
