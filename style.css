@@ -64,6 +64,18 @@ button {
     border-radius: 5px;
 }
 
+/* 追加：問題数カウンターのスタイル（右上に配置） */
+#question-counter {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 8px 14px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+    margin: 0;
+}
+
 #question-text {
     font-size: 56px;
     font-weight: bold;
