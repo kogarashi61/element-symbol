@@ -64,7 +64,7 @@ const elements = [
 let currentQuestions = [];
 let currentIndex = 0;
 let isAnswered = false;
-let wrongElements = []; // ★追加：間違えた元素を記憶する配列
+let wrongElements = [];
 
 // DOM要素の取得
 const startScreen = document.getElementById('start-screen');
@@ -72,8 +72,8 @@ const quizScreen = document.getElementById('quiz-screen');
 const endScreen = document.getElementById('end-screen');
 const controls = document.getElementById('controls');
 const resultArea = document.getElementById('result-area');
-const wrongListArea = document.getElementById('wrong-list-area'); // ★追加
-const wrongList = document.getElementById('wrong-list');         // ★追加
+const wrongListArea = document.getElementById('wrong-list-area');
+const wrongList = document.getElementById('wrong-list');
 
 const btnNormal = document.getElementById('btn-normal');
 const btnRandom = document.getElementById('btn-random');
@@ -84,6 +84,9 @@ const questionText = document.getElementById('question-text');
 const answerInput = document.getElementById('answer-input');
 const judgment = document.getElementById('judgment');
 const correctAnswerText = document.getElementById('correct-answer');
+
+// ★追加：問題数カウンターのDOM取得
+const questionCounter = document.getElementById('question-counter');
 
 // 順番通りモード開始
 btnNormal.addEventListener('click', () => {
@@ -108,9 +111,9 @@ function startQuiz() {
     quizScreen.classList.remove('hidden');
     controls.classList.remove('hidden');
     currentIndex = 0;
-    wrongElements = []; // ★間違えた記憶をリセット
-    wrongList.innerHTML = ''; // ★画面上のリストも空にする
-    wrongListArea.classList.add('hidden'); // ★最初は間違えたリスト自体を隠しておく
+    wrongElements = []; 
+    wrongList.innerHTML = ''; 
+    wrongListArea.classList.add('hidden'); 
     showQuestion();
 }
 
@@ -123,6 +126,9 @@ function showQuestion() {
     
     const currentElem = currentQuestions[currentIndex];
     questionText.textContent = `${currentElem.no} ${currentElem.symbol}`;
+    
+    // ★追加：現在の問題数（数字のみ）を表示
+    questionCounter.textContent = currentIndex + 1;
     
     answerInput.focus();
 }
@@ -156,33 +162,28 @@ function checkAnswer() {
         judgment.textContent = '×';
         judgment.className = 'incorrect';
         
-        // 間違えたら配列に保存し、リストを更新する
         recordWrongElement(currentElem);
     }
     
     correctAnswerText.textContent = `${currentElem.name}`;
     resultArea.classList.remove('hidden');
     
-    // 前回の修正通り、少し待ってから次へボタンにフォーカスを当てる
     setTimeout(() => {
         btnNext.focus();
     }, 800);
 }
 
-// ★追加：間違えた元素を記録して画面に表示する関数
+// 間違えた元素を記録して画面に表示する関数
 function recordWrongElement(elem) {
-    // 既にリストに入っているか確認（同じ問題を何度も間違えたとき重複させないため）
     const isAlreadyRecorded = wrongElements.some(e => e.no === elem.no);
     
     if (!isAlreadyRecorded) {
         wrongElements.push(elem);
         
-        // 新しいリストアイテム（li）を作って画面に追加
         const li = document.createElement('li');
         li.textContent = `${elem.no} ${elem.symbol}：${elem.name}`;
         wrongList.appendChild(li);
         
-        // 1つでも間違えたら、間違えたリストエリアを表示する
         wrongListArea.classList.remove('hidden');
     }
 }
@@ -201,7 +202,6 @@ btnNext.addEventListener('click', () => {
 function finishQuiz() {
     quizScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    // 終了時、もし1つも間違えていなければリストエリアは隠れたまま、間違えていればそのまま表示されます
 }
 
 // 最初からボタン処理（リセット）
