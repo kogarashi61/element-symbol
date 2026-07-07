@@ -1,4 +1,3 @@
-// 全118元素のデータ
 const elements = [
     { no: 1, symbol: 'H', name: '水素' }, { no: 2, symbol: 'He', name: 'ヘリウム' },
     { no: 3, symbol: 'Li', name: 'リチウム' }, { no: 4, symbol: 'Be', name: 'ベリリウム' },
